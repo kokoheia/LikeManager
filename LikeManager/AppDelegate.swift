@@ -8,16 +8,36 @@
 
 import UIKit
 import CoreData
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    let CONSUMER_KEY = "YOUR_CONSUMER_KEY"
+    let CONSUMER_SECRET = "CONSUMER_SECRET"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        TWTRTwitter.sharedInstance().start(withConsumerKey: CONSUMER_KEY, consumerSecret: CONSUMER_SECRET)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = ContainerViewController()
+        window?.backgroundColor = .white
+        
         return true
+    }
+    
+   
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.portrait
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
