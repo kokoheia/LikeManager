@@ -10,13 +10,13 @@ import UIKit
 import TwitterKit
 import RealmSwift
 
-class InstructionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+final class InstructionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: Properties
-    let cellID = "cellID"
-    var users: Results<User>!
+    private let cellID = "cellID"
+    private var users: Results<User>!
     
-    lazy var logInButton = TWTRLogInButton(logInCompletion: { [weak self] session, error in
+    private lazy var logInButton = TWTRLogInButton(logInCompletion: { [weak self] session, error in
         if let session = session {
             print("signed in as \(session.userName)")
             DispatchQueue.main.async { [weak self] in

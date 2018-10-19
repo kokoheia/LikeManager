@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CircleView: UIView {
+final class CircleView: UIView {
     
     // MARK: Properties
     var strokeColor: UIColor? {
@@ -21,8 +21,8 @@ class CircleView: UIView {
             setNeedsDisplay()
         }
     }
-    var percent: CGFloat = 0.8
-    var lineWidth: CGFloat?
+    private var percent: CGFloat = 0.8
+    private var lineWidth: CGFloat?
     
     // MARK: Inits
     override init(frame: CGRect) {

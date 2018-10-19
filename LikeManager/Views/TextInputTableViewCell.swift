@@ -8,20 +8,22 @@
 
 import UIKit
 
-class TextInputTableViewCell: UITableViewCell {
+final class TextInputTableViewCell: UITableViewCell {
     
     // MARK: Subviews
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     let textInput: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Category name"
         return tf
     }()
     
-    let separator: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
+    
     
     // MARK: Inits
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

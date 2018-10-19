@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import TwitterKit
 
-class CategoryTableViewController: UITableViewController {
+final class CategoryTableViewController: UITableViewController {
     
     // MARK: Properties
     var categories: Results<Category>!

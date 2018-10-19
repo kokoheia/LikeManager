@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlusButtonCollectionViewCell: UICollectionViewCell {
+final class PlusButtonCollectionViewCell: UICollectionViewCell {
     
     // MARK: Subviews
     let plusButton: UIButton = {

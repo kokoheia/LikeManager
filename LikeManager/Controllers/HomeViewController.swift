@@ -17,43 +17,34 @@ protocol HomeViewControllerDelegate {
     func toggleLeftPanel()
 }
 
-class HomeViewController: UITableViewController, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, UIGestureRecognizerDelegate  {
+final class HomeViewController: UITableViewController {
     
     // MARK: Properties
-    let cellID = "cellID"
-    
+    private let cellID = "cellID"
+    private var searchResult = [TWTRTweet]()
+    private var users: Results<User>!
+    private var notificationToken: NotificationToken?
+    private var numberOfRequest = 5
+    private var client = TWTRAPIClient()
+    private var tapGestureRecognizer: UITapGestureRecognizer?
+    private var isFirstSearch = true
+
     var tweetIDs = [String]()
     var tweets = [TWTRTweet]()
-    var searchResult = [TWTRTweet]()
-    var users: Results<User>!
-    var notificationToken: NotificationToken?
-
-
     var lastLoadedTweetID: String?
     var loadCount = 0
-    var numberOfRequest = 5
-    
     var searchController : UISearchController!
+    var isTweetFetched =  false
+    var delegate: HomeViewControllerDelegate?
     
-    let activityIndicator: UIActivityIndicatorView = {
+    private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.hidesWhenStopped = true
         indicator.activityIndicatorViewStyle = .gray
         return indicator
     }()
     
-    var client = TWTRAPIClient()
-    
-    var isTweetFetched =  false
-    
-    private var tapGestureRecognizer: UITapGestureRecognizer?
-    
-    private var isFirstSearch = true
-    
-    var delegate: HomeViewControllerDelegate?
-    
-    
-    
+
     // MARK: Functions for Realm
     private func setupRealm(with userID: String) {
         let realm = RealmService.shared.realm
@@ -194,7 +185,6 @@ class HomeViewController: UITableViewController, UISearchControllerDelegate, UIS
     
     
     // MARK: ViewController Life Cycles
-    
     override func viewDidAppear(_ animated: Bool) {
         checkIfUserLoggedIn()
         checkIfSearchBarIsHidden()
@@ -218,7 +208,6 @@ class HomeViewController: UITableViewController, UISearchControllerDelegate, UIS
     
     
     // MARK: Setup Functions
-    
     private func setupSearchBar() {
         self.searchController = UISearchController(searchResultsController:  nil)
         
@@ -314,10 +303,12 @@ class HomeViewController: UITableViewController, UISearchControllerDelegate, UIS
         vc.tweet = searchController.isActive ? searchResult[indexPath.row] : tweets[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
-    
+}
+
+
+
+
+extension HomeViewController: UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     // MARK: SearchController Delegate Functions
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else {

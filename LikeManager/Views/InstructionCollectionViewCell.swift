@@ -9,16 +9,18 @@
 import UIKit
 import TwitterKit
 
-class InstructionCollectionViewCell: UICollectionViewCell {
+final class InstructionCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
-    let cellID = "cellID"
-    let cellIDForCategoryView = "cellIDForCategoryView"
+    private let cellID = "cellID"
+    private let cellIDForCategoryView = "cellIDForCategoryView"
+    private var categories =  [Category]()
+    
     var currentIndex: Int?
-    var categories =  [Category]()
+
     
     // MARK: Subviews
-    lazy var pageIndicatorView: UICollectionView = {
+    private lazy var pageIndicatorView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 7
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -30,13 +32,13 @@ class InstructionCollectionViewCell: UICollectionViewCell {
         return cv
     }()
     
-    let mainTitleLabel: UILabel = {
+    private let mainTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
     
-    let subTitleLabel: UILabel = {
+    private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.numberOfLines = 0
@@ -44,19 +46,19 @@ class InstructionCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "tags")
         iv.contentMode = .scaleAspectFit
         return iv
     }()
     
-    let tweetView: TWTRTweetView = {
+    private let tweetView: TWTRTweetView = {
         let view = TWTRTweetView()
         return view
     }()
     
-    lazy var categoryView: UICollectionView = {
+    private lazy var categoryView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         cv.delegate = self
@@ -67,7 +69,7 @@ class InstructionCollectionViewCell: UICollectionViewCell {
         return cv
     }()
     
-    lazy var logInButton = TWTRLogInButton(logInCompletion: { session, error in
+    private  lazy var logInButton = TWTRLogInButton(logInCompletion: { session, error in
         if let session = session {
             print("signed in as \(session.userName)")
             if let parentCollectionView = self.superview {

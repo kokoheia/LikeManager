@@ -8,10 +8,9 @@
 
 import UIKit
 
-class CategoryTableViewCell: UITableViewCell {
-  
+final class CategoryTableViewCell: UITableViewCell {
     // MARK: Subviews
-    lazy var badgeView: UIView = {
+    private lazy var badgeView: UIView = {
         let centerY = frame.height / 2
         let rect = CGRect(x: 0, y: 0, width: 16, height: 16)
         let circleView = UIView(frame: rect)
@@ -22,13 +21,13 @@ class CategoryTableViewCell: UITableViewCell {
         return circleView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let separator: UIView = {
+    private let separator: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
         view.translatesAutoresizingMaskIntoConstraints = false

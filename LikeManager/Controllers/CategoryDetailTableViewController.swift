@@ -10,21 +10,18 @@ import UIKit
 import TwitterKit
 import RealmSwift
 
-class CategoryDetailTableViewController: UITableViewController {
+final class CategoryDetailTableViewController: UITableViewController {
     
     // MARK: Properties
-    let categoryCellID = "categoryCellID"
-    let tweetCellID = "tweetCellID"
-    
-    var categories: Results<Category>!
-    var fileteredCategoires = [Category]()
-    var notificationToken: NotificationToken?
+    private let categoryCellID = "categoryCellID"
+    private let tweetCellID = "tweetCellID"
+    private var categories: Results<Category>!
+    private var fileteredCategoires = [Category]()
+    private var notificationToken: NotificationToken?
+    private var tweetIDs = [String]()
+    private var tweets = [TWTRTweet]()
 
     var selectedIndex: Int?
-    
-    var tweetIDs = [String]()
-    var tweets = [TWTRTweet]()
-
     
     // MARK: ViewController lifeCycle
     override func viewDidLoad() {

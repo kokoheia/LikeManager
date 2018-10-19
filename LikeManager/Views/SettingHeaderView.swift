@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SettingHeaderView: UIView {
+final class SettingHeaderView: UIView {
     
     // MARK: Subviews
     let textLabel: UILabel = {
@@ -18,7 +18,7 @@ class SettingHeaderView: UIView {
         return label
     }()
     
-    let separatorView: UIView = {
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
         return view

@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ColorCollectionViewCell: UICollectionViewCell {
+final class ColorCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
-    var isChosen = true
+    private var isChosen = true
     override var isSelected: Bool {
         didSet {
             subviews.forEach {$0.removeFromSuperview() }
@@ -30,7 +30,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: Subviews
-    lazy var circle: CircleView = {
+    private lazy var circle: CircleView = {
         let circle = CircleView(strokeColor: color, fillColor: color, lineWidth: 1, sizePercentage: 0.8)
         circle.backgroundColor = .white
         return circle

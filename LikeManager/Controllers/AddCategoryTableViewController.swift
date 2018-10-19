@@ -10,15 +10,15 @@ import UIKit
 import RealmSwift
 import TwitterKit
 
-class AddCategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+final class AddCategoryViewController: UIViewController {
     // MARK: Properties
-    let inputCellID = "inputCellID"
-    let colorCellID = "colorCellID"
+    private let inputCellID = "inputCellID"
+    private let colorCellID = "colorCellID"
+    private var categories: Results<Category>!
+    
     var category: Category?
-    var categories: Results<Category>!
 
-    lazy var tableView: UITableView =  {
+    private lazy var tableView: UITableView =  {
         let tv = UITableView()
         tv.delegate = self
         tv.dataSource = self
@@ -92,15 +92,16 @@ class AddCategoryViewController: UIViewController, UITableViewDelegate, UITableV
         }
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    
+}
+
+
+extension AddCategoryViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: TableViewController delegate functions
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 61
     }
-
-
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: inputCellID) as! TextInputTableViewCell
@@ -116,14 +117,12 @@ class AddCategoryViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
         }
     }
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
-
-
 }

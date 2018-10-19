@@ -15,16 +15,16 @@ import RealmSwift
 let userCache = NSCache<NSString, User>()
 
 
-class SettingViewController: UITableViewController {
+final class SettingViewController: UITableViewController {
     
     // MARK: Properties
-    let accountCellID = "accontCellID"
-    let normalCellID = "normalCellID"
+    private let accountCellID = "accontCellID"
+    private let normalCellID = "normalCellID"
     
-    var sections = ["Accounts", "Utilities"]
+    private var sections = ["Accounts", "Utilities"]
     
-    var users: Results<User>!
-    var usersData = [User] () {
+    private var users: Results<User>!
+    private var usersData = [User] () {
         didSet {
             usersData.sort { $0.userName! < $1.userName! }
             DispatchQueue.main.async {
@@ -32,8 +32,8 @@ class SettingViewController: UITableViewController {
             }
         }
     }
-    var utilities = ["Feedback"]
-    var currentUserID: String? {
+    private var utilities = ["Feedback"]
+    private var currentUserID: String? {
         if let user = users.filter({$0.isCurrentUser}).first {
             return user.userID
         } else {

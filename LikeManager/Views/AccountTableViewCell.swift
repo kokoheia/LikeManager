@@ -8,17 +8,17 @@
 
 import UIKit
 
-class AccountTableViewCell: UITableViewCell {
+final class AccountTableViewCell: UITableViewCell {
     
     // MARK: Subviews
-    let profileImageView: UIImageView = {
+    private let profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 17.5
         iv.layer.masksToBounds = true
         return iv
     }()
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return label

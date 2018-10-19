@@ -8,15 +8,21 @@
 
 import UIKit
 
-class AddCategoryTableViewCell: UITableViewCell {
+final class AddCategoryTableViewCell: UITableViewCell {
     
     // MARK: Subviews
-    let plusView: UIImageView = {
+    private let plusView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "plus")
         iv.contentMode = .scaleAspectFill
         iv.layer.masksToBounds = true
         return iv
+    }()
+    
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     let titleLabel: UILabel = {
@@ -30,11 +36,7 @@ class AddCategoryTableViewCell: UITableViewCell {
         return label
     }()
     
-    let separator: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
+    
     
     
     // MARK: Inits

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ChooseColorTableViewCell: UITableViewCell {
+final class ChooseColorTableViewCell: UITableViewCell {
     // MARK: Properties
-    let cellID = "cellID"
-    lazy var colors: [UIColor] = [.appPurple, .appGreen, .appLightBlue, .appDeepYellow, .appBrown, .appVividRed, .appOrange]
-    var selectedIndex: Int?
+    private let cellID = "cellID"
+    private lazy var colors: [UIColor] = [.appPurple, .appGreen, .appLightBlue, .appDeepYellow, .appBrown, .appVividRed, .appOrange]
+    private var selectedIndex: Int?
     
     // MARK: Subviews
     lazy var collectionView: UICollectionView =  {

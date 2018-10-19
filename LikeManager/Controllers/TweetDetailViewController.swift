@@ -10,23 +10,19 @@ import UIKit
 import TwitterKit
 import RealmSwift
 
-class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIDropInteractionDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
-    
+final class TweetDetailViewController: UIViewController {
     // MARK: Properties
-    let cellID = "cellID"
-    let cellIDPlus = "cellIDPlus"
-    
-    var categories: Results<Category>!
-    var filteredCategories = [Category]()
-    var categoriesInTweet =  [Category]()
-    var categoriesNotInTweet = [Category]()
-
-    var notificationToken: NotificationToken?
-    var sourceIndexPath: IndexPath?
-    var sourceCategory: Category?
-    var tweetHeight: CGFloat = 500
-
-    var tweetID: String? {
+    private let cellID = "cellID"
+    private let cellIDPlus = "cellIDPlus"
+    private var categories: Results<Category>!
+    private var filteredCategories = [Category]()
+    private var categoriesInTweet =  [Category]()
+    private var categoriesNotInTweet = [Category]()
+    private var notificationToken: NotificationToken?
+    private var sourceIndexPath: IndexPath?
+    private var sourceCategory: Category?
+    private var tweetHeight: CGFloat = 500
+    private var tweetID: String? {
         return tweet?.tweetID
     }
     
@@ -39,20 +35,20 @@ class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     // MARK: Subviews
-    let placeHolderView: UIView = {
+    private let placeHolderView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
     
-    lazy var tweetView: TWTRTweetView = {
+    private lazy var tweetView: TWTRTweetView = {
         let view = TWTRTweetView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         return view
     }()
     
-    lazy var dropSpaceView: UICollectionView = {
+    private lazy var dropSpaceView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.backgroundColor = .clear
@@ -67,7 +63,7 @@ class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         return view
     }()
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         cv.delegate = self
@@ -143,8 +139,11 @@ class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         view.addSubview(collectionView)
         collectionView.anchor(top: placeHolderView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, paddingTop: 0, paddingLeft: 0, paddingRight: 0, paddingBottom: 0, width: nil, height: nil)
     }
-    
-    
+
+}
+
+
+extension TweetDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // MARK: CollectionView delegate methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView.tag {
@@ -215,14 +214,17 @@ class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             return UIEdgeInsets(top: tweetHeight+14.5, left: 10, bottom: 12.5, right: -1000000)
         }
     }
-    
+}
+
+
+extension TweetDetailViewController: UIDropInteractionDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
     // MARK: CollectionView drag interactions
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         session.localContext = collectionView
         return dragItems(at: indexPath, with: collectionView.tag)
     }
- 
+    
     private func dragItems(at indexPath: IndexPath, with tag: Int) -> [UIDragItem] {
         if tag == 0, let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell{
             sourceIndexPath = collectionView.indexPath(for: cell)
@@ -292,9 +294,6 @@ class TweetDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             }
         }
     }
-    
-    
-    
     // MARK: Handlers
     @objc private func handleEditCategory() {
         let vc = AddCategoryViewController()

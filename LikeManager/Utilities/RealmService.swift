@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class RealmService {
+final class RealmService {
     
     private init() {}
     static let shared = RealmService()

@@ -9,8 +9,7 @@
 import UIKit
 import TwitterKit
 
-class TweetTableViewCell: UITableViewCell, TWTRTweetViewDelegate {
-    
+final class TweetTableViewCell: UITableViewCell, TWTRTweetViewDelegate {
     // MARK: Subviews
     lazy var tweetView: TWTRTweetView = {
         let view = TWTRTweetView()

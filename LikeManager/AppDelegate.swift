@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let CONSUMER_KEY = "YOUR_CONSUMER_KEY"
-    let CONSUMER_SECRET = "CONSUMER_SECRET"
+    let CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

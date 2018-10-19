@@ -9,7 +9,7 @@
 import Foundation
 
 //This is a dummy class for storing tweetIDs of each user
-class UserTweets {
+final class UserTweets {
     var tweetIDs = [String]()
     
     init(tweetIDs: [String]) {

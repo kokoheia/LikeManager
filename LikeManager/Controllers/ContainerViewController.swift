@@ -10,15 +10,14 @@ import UIKit
 import TwitterKit
 import RealmSwift
 
-class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
-    
+final class ContainerViewController: UIViewController {
     enum SlideOutState {
         case collapsed
         case leftPanelExpanded
     }
     
     // MARK: Properties
-    lazy var tabBarControllerForNavigationController: UITabBarController = {
+    private lazy var tabBarControllerForNavigationController: UITabBarController = {
         let tbc = UITabBarController()
         let homeVC = HomeViewController()
         homeVC.delegate = self
@@ -30,18 +29,17 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
         tbc.viewControllers = [homeVC, categoryVC]
         return tbc
     }()
-    
-    
-    var centerNavigationController: UINavigationController?
-    var leftViewController: SettingViewController?
-    var currentState: SlideOutState = .collapsed {
+    private var leftViewController: SettingViewController?
+    private var currentState: SlideOutState = .collapsed {
         didSet {
             let isLeftPanelExpanded = currentState == .leftPanelExpanded
             showShadowForCenterViewController(isLeftPanelExpanded)
             setTapGestureRecognizer(isLeftPanelExpanded)
         }
     }
-    let centerPanelExpandedOffset: CGFloat = 60
+    private let centerPanelExpandedOffset: CGFloat = 60
+    
+    var centerNavigationController: UINavigationController?
     
     // MARK: ViewController lifecycles
     override func viewDidAppear(_ animated: Bool) {
@@ -102,7 +100,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
         animateLeftPanel(shouldExpand: notAlreadyExpanded)
     }
     
-    func addLeftPanelViewController() {
+    private func addLeftPanelViewController() {
         guard leftViewController == nil else { return }
         
         if let homeVC = centerNavigationController?.childViewControllers.first?.childViewControllers.first as? HomeViewController {
@@ -114,7 +112,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
         leftViewController = vc
     }
     
-    func addChildSidePanelController(_ settingViewController: SettingViewController) {
+    private func addChildSidePanelController(_ settingViewController: SettingViewController) {
         view.insertSubview(settingViewController.view, at: 0)
         addChildViewController(settingViewController)
         settingViewController.didMove(toParentViewController: self)
@@ -138,7 +136,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
         RealmService.shared.create(design)
     }
     
-    @objc func animateLeftPanel(shouldExpand: Bool) {
+    @objc private func animateLeftPanel(shouldExpand: Bool) {
         if shouldExpand {
             currentState = .leftPanelExpanded
             animateCenterPanelXPosition(
@@ -153,11 +151,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
         }
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
+    private func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: 0.5,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
@@ -167,7 +161,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
         }, completion: completion)
     }
     
-    func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
+    private func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
         
         if shouldShowShadow {
             centerNavigationController!.view.layer.shadowOpacity = 0.8
@@ -175,4 +169,13 @@ extension ContainerViewController: HomeViewControllerDelegate {
             centerNavigationController!.view.layer.shadowOpacity = 0.0
         }
     }
+}
+
+
+extension ContainerViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
 }

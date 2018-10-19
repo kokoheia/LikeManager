@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class Category: Object {
+final class Category: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var colorName: String = ""
     @objc dynamic var userID: String = ""

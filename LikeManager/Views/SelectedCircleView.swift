@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectedCircleView: UIView {
+final class SelectedCircleView: UIView {
 
     // MARK: Properties
     var color: UIColor = .orange {
@@ -16,8 +16,8 @@ class SelectedCircleView: UIView {
             setNeedsDisplay()
         }
     }
-    var percent: CGFloat = 0.8
-    var lineWidth: CGFloat?
+    private var percent: CGFloat = 0.8
+    private var lineWidth: CGFloat?
     
     // MARK: Inits
     override init(frame: CGRect) {
