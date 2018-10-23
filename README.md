@@ -1,8 +1,8 @@
 # LikeManager
 
 ## Overview
-Like Manager is an iOS app that allows you to manage likes in Twitter.
-You can download the complete app from [App Store](https://itunes.apple.com/jp/app/%E3%82%A2%E3%83%89%E3%82%BF%E3%82%B0/id1438481163?l=en&mt=8). 
+**Like Manager** is an iOS app that allows you to manage likes in Twitter.
+You can download the complete app from [App Store](https://itunes.apple.com/jp/app/%E3%82%A2%E3%83%89%E3%82%BF%E3%82%B0/id1438481163?l=en&mt=8).
 
 These are the main function of the app
 
