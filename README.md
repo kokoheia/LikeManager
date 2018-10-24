@@ -14,6 +14,7 @@ These are the main function of the app
 <img src="https://user-images.githubusercontent.com/32465018/47274681-a9a09a00-d5e2-11e8-9f9b-8e2867bb24b9.png" height="500px"> <img src="https://user-images.githubusercontent.com/32465018/47274691-d6ed4800-d5e2-11e8-961a-fc880ef36b9b.png" height="500px"> <img src="https://user-images.githubusercontent.com/32465018/47274698-f1272600-d5e2-11e8-937d-ac248a2b338d.png" height="500px">
 
 
+Icons are from https://icons8.com/
 
 ## Requirement
 Like Manager uses libraries below
